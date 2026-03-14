@@ -1,0 +1,57 @@
+# ======================
+# FastAPI / Python (backend)
+# ======================
+
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/*.pyd
+backend/.env
+backend/.env.*
+backend/venv/
+backend/.venv/
+
+# ======================
+# Angular / Node (frontend)
+# ======================
+
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.angular/cache/
+
+# ======================
+# Logs
+# ======================
+
+*.log
+npm-debug.log
+yarn-error.log
+
+# ======================
+# IDEs and Editors
+# ======================
+
+.vscode/
+.idea/
+.project
+.classpath
+.settings/
+*.launch
+
+# ======================
+# Angular build/cache
+# ======================
+
+frontend/tmp/
+frontend/out-tsc/
+frontend/bazel-out/
+frontend/.sass-cache/
+frontend/coverage/
+
+# ======================
+# System files
+# ======================
+
+.DS_Store
+Thumbs.db
