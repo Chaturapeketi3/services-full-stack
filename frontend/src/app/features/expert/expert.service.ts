@@ -43,4 +43,8 @@ export class ExpertService {
     const params = new HttpParams().set('page', page).set('size', size);
     return this.http.get(`${environment.apiUrl}/experts/earnings`, { params });
   }
+
+  updateBookingStatus(bookingId: string, status: string): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/bookings/${bookingId}`, { status });
+  }
 }

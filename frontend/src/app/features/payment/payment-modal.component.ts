@@ -25,7 +25,7 @@ import { Booking } from '../../shared/models';
           </div>
           <div class="row">
             <span>Total Amount:</span>
-            <strong class="price">$\{{ booking.total_amount }}</strong>
+            <strong class="price">₹{{ booking.total_amount }}</strong>
           </div>
         </div>
 
@@ -48,7 +48,7 @@ import { Booking } from '../../shared/models';
           class="btn-primary pay-btn" 
           [disabled]="isLoading || !selectedMethod"
           (click)="processPayment()">
-          {{ isLoading ? 'Processing...' : 'Pay $' + (booking?.total_amount || 0) }}
+          {{ isLoading ? 'Processing...' : 'Pay ₹' + (booking?.total_amount || 0) }}
         </button>
       </div>
     </div>

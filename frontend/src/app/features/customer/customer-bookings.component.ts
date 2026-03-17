@@ -30,7 +30,7 @@ import { Booking } from '../../shared/models';
             <p style="margin: 0; color: #6b7280; font-size: 0.875rem;">Status: <strong style="color: #2563eb;">{{ booking.status }}</strong></p>
           </div>
           <div style="text-align: right;">
-            <p style="font-size: 1.25rem; font-weight: 700; color: #111827; margin: 0 0 0.5rem;">\${{ booking.total_amount }}</p>
+            <p style="font-size: 1.25rem; font-weight: 700; color: #111827; margin: 0 0 0.5rem;">₹{{ booking.total_amount }}</p>
             <a [routerLink]="['/customer/booking-details', booking.id]" style="color: #2563eb; text-decoration: none; font-size: 0.875rem; font-weight: 500;">View Details</a>
           </div>
         </div>

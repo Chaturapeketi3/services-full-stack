@@ -47,6 +47,9 @@ import { ExpertService } from './expert.service';
               <button class="btn-accept" (click)="acceptJob(job.id)">Accept</button>
               <button class="btn-reject" (click)="rejectJob(job.id)">Reject</button>
             </div>
+            <div class="job-actions" *ngIf="job.status === 'ACCEPTED'">
+              <button class="btn-complete" (click)="completeJob(job.id)">✅ Mark Complete</button>
+            </div>
           </div>
         </section>
       </main>
@@ -77,6 +80,7 @@ import { ExpertService } from './expert.service';
     .job-actions { display: flex; gap: 0.75rem; }
     .btn-accept { background: #10b981; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; }
     .btn-reject { background: none; color: #ef4444; border: 1px solid #ef4444; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; }
+    .btn-complete { background: #2563eb; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; }
   `]
 })
 export class ExpertJobsComponent implements OnInit {
@@ -113,6 +117,17 @@ export class ExpertJobsComponent implements OnInit {
     this.expertService.rejectJob(jobId).subscribe({
       next: () => this.fetchJobs(),
       error: (err: any) => alert('Failed to reject: ' + (err.error?.detail || 'Unknown error'))
+    });
+  }
+
+  completeJob(jobId: string) {
+    if (!confirm('Mark this job as completed? This will credit your earnings.')) return;
+    this.expertService.updateBookingStatus(jobId, 'COMPLETED').subscribe({
+      next: () => {
+        this.fetchJobs();
+        alert('Job marked complete! Earnings have been updated.');
+      },
+      error: (err: any) => alert('Failed to complete: ' + (err.error?.detail || 'Unknown error'))
     });
   }
 

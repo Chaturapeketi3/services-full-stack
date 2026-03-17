@@ -32,9 +32,32 @@ import { ExpertService } from './expert.service';
         <section class="recent-requests">
           <div *ngIf="isLoading" class="empty-state">Loading earnings...</div>
           <div *ngIf="!isLoading && earnings.length === 0" class="empty-state">
-            <p>No earnings history yet.</p>
+            <p>No earnings history yet. Complete jobs to see earnings here.</p>
           </div>
-          <!-- Loop through earnings here in the future -->
+          <table *ngIf="!isLoading && earnings.length > 0" class="earnings-table">
+            <thead>
+              <tr>
+                <th>Booking Ref</th>
+                <th>Amount Earned</th>
+                <th>Platform Fee</th>
+                <th>Net Payout</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let e of earnings">
+                <td class="mono">{{ e.booking_id.slice(0, 8) }}...</td>
+                <td class="amount">₹{{ e.amount_earned | number:'1.2-2' }}</td>
+                <td class="fee">₹{{ e.platform_fee | number:'1.2-2' }}</td>
+                <td class="net">₹{{ (e.amount_earned - e.platform_fee) | number:'1.2-2' }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3"><strong>Total Earned</strong></td>
+                <td class="net"><strong>₹{{ totalEarned | number:'1.2-2' }}</strong></td>
+              </tr>
+            </tfoot>
+          </table>
         </section>
       </main>
     </div>
@@ -53,8 +76,16 @@ import { ExpertService } from './expert.service';
     header h1 { font-size: 2rem; color: #111827; margin: 0 0 0.5rem; }
     header p { color: #6b7280; margin: 0; }
     
-    .recent-requests { margin-top: 1rem; }
+    .recent-requests { margin-top: 1rem; overflow-x: auto; }
     .empty-state { background: white; padding: 3rem; text-align: center; border-radius: 12px; border: 1px dashed #cbd5e1; color: #94a3b8; }
+    .earnings-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+    .earnings-table th, .earnings-table td { padding: 1rem 1.25rem; text-align: left; border-bottom: 1px solid #f3f4f6; }
+    .earnings-table thead tr { background: #1e293b; color: white; }
+    .earnings-table tfoot tr { background: #f8fafc; font-weight: 700; }
+    .mono { font-family: monospace; font-size: 0.85rem; color: #6b7280; }
+    .amount { color: #1e293b; font-weight: 600; }
+    .fee { color: #ef4444; }
+    .net { color: #059669; font-weight: 700; }
   `]
 })
 export class ExpertEarningsComponent implements OnInit {
@@ -64,6 +95,10 @@ export class ExpertEarningsComponent implements OnInit {
 
   earnings: any[] = [];
   isLoading = true;
+
+  get totalEarned(): number {
+    return this.earnings.reduce((sum, e) => sum + (e.amount_earned - e.platform_fee), 0);
+  }
 
   ngOnInit() {
     this.fetchEarnings();

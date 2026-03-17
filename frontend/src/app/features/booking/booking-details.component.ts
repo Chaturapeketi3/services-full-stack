@@ -32,11 +32,11 @@ import { Booking } from '../../shared/models';
           
           <div class="info-group" *ngIf="booking.expert_earning">
              <label>Expert Earning</label>
-             <p class="price" style="font-size: 1rem !important; color:#059669 !important;">$\{{ booking.expert_earning }}</p>
+             <p class="price" style="font-size: 1rem !important; color:#059669 !important;">₹{{ booking.expert_earning }}</p>
           </div>
           <div class="info-group">
             <label>Amount</label>
-            <p class="price">$\{{ booking.total_amount }}</p>
+            <p class="price">₹{{ booking.total_amount }}</p>
           </div>
         </div>
 

@@ -63,10 +63,9 @@ class BookingService:
             raise GenericException("Start time must be in the future.")
 
         duration_minutes = int((end_dt - start_dt).total_seconds() / 60)
-        duration_hours = duration_minutes / 60.0
 
-        hourly_rate = float(expert.hourly_rate or 50.0)
-        expert_earning = hourly_rate * duration_hours
+        # Expert earning rule: booking_price - platform_commission (which is 0 here)
+        expert_earning = data.total_amount
 
         # Store as ISO 8601 string because the DB column is String
         start_time_str = start_dt.isoformat()
@@ -137,7 +136,18 @@ class BookingService:
             cp_id = await self.get_customer_profile_id(user.id)
             if booking.customer_id != cp_id: raise UnauthorizedException("Not authorized")
 
-        if updates.status: booking.status = updates.status
+        if updates.status: 
+            if updates.status == BookingStatusEnum.COMPLETED and booking.status != BookingStatusEnum.COMPLETED:
+                from app.models.all import ExpertEarnings
+                db_earning = ExpertEarnings(
+                    expert_id=booking.expert_id,
+                    booking_id=booking.id,
+                    amount_earned=booking.expert_earning,
+                    platform_fee=0
+                )
+                self.db.add(db_earning)
+            
+            booking.status = updates.status
         if updates.start_time: booking.start_time = updates.start_time
         if updates.end_time: booking.end_time = updates.end_time
         

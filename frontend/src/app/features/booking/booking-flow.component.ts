@@ -21,7 +21,7 @@ import { BookingService, CatalogService } from './booking.service';
             <select formControlName="expert_id">
               <option value="">-- Choose an available professional --</option>
               <option *ngFor="let expert of experts" [value]="expert.id">
-                {{ expert.full_name }}{{ expert.hourly_rate ? ' ($' + expert.hourly_rate + '/hr)' : '' }}
+                {{ expert.full_name }}{{ expert.hourly_rate ? ' (₹' + expert.hourly_rate + '/hr)' : '' }}
               </option>
             </select>
             <div *ngIf="experts.length === 0" class="hint text-red">No experts available at the moment.</div>
