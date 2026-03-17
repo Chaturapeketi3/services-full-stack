@@ -36,6 +36,7 @@ All transactions are recorded in **Indian Rupees (₹)**.
 ## ✨ Features
 
 ### 👤 Customer Features
+
 - Register & login with role-based authentication
 - Browse service categories and individual services
 - Select an available expert and time slot (start + end time)
@@ -46,6 +47,7 @@ All transactions are recorded in **Indian Rupees (₹)**.
 - View booking history with duration and amount details
 
 ### 🔧 Expert Features
+
 - Register & login as a service professional
 - Toggle online/offline availability to receive jobs
 - View all assigned job requests with booking details
@@ -61,16 +63,16 @@ All transactions are recorded in **Indian Rupees (₹)**.
 
 ## 🛠️ Tech Stack
 
-| Layer       | Technology                     |
-|-------------|-------------------------------|
+| Layer       | Technology                                         |
+| ----------- | -------------------------------------------------- |
 | Frontend    | Angular 17 (Standalone Components, Reactive Forms) |
-| Backend     | FastAPI (Python 3.11+)        |
-| Database    | PostgreSQL                    |
-| ORM         | SQLAlchemy 2.0 (async)        |
-| Migrations  | Alembic                       |
-| Auth        | JWT (Bearer Token)            |
-| Validation  | Pydantic v2                   |
-| HTTP Client | Angular HttpClient            |
+| Backend     | FastAPI (Python 3.11+)                             |
+| Database    | PostgreSQL                                         |
+| ORM         | SQLAlchemy 2.0 (async)                             |
+| Migrations  | Alembic                                            |
+| Auth        | JWT (Bearer Token)                                 |
+| Validation  | Pydantic v2                                        |
+| HTTP Client | Angular HttpClient                                 |
 
 ---
 
@@ -122,6 +124,7 @@ chesuko/
 ## ⚙️ Installation
 
 ### Prerequisites
+
 - Node.js 18+
 - Python 3.11+
 - PostgreSQL 15+
@@ -185,7 +188,7 @@ Located at `frontend/src/environments/environment.ts`:
 ```typescript
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8000/api'
+  apiUrl: "http://localhost:8000/api",
 };
 ```
 
@@ -194,55 +197,62 @@ export const environment = {
 ## 📡 API Overview
 
 ### Authentication
-| Method | Endpoint            | Description            |
-|--------|---------------------|------------------------|
-| POST   | `/auth/register`    | Register a new user    |
-| POST   | `/auth/login`       | Login and get JWT      |
-| POST   | `/auth/logout`      | Invalidate session     |
+
+| Method | Endpoint         | Description         |
+| ------ | ---------------- | ------------------- |
+| POST   | `/auth/register` | Register a new user |
+| POST   | `/auth/login`    | Login and get JWT   |
+| POST   | `/auth/logout`   | Invalidate session  |
 
 ### Bookings
-| Method | Endpoint                | Description              |
-|--------|-------------------------|--------------------------|
-| POST   | `/bookings`             | Create a booking         |
-| GET    | `/bookings`             | List user's bookings     |
-| GET    | `/bookings/{id}`        | Get booking details      |
-| PUT    | `/bookings/{id}`        | Update booking / status  |
-| DELETE | `/bookings/{id}`        | Cancel booking           |
+
+| Method | Endpoint         | Description             |
+| ------ | ---------------- | ----------------------- |
+| POST   | `/bookings`      | Create a booking        |
+| GET    | `/bookings`      | List user's bookings    |
+| GET    | `/bookings/{id}` | Get booking details     |
+| PUT    | `/bookings/{id}` | Update booking / status |
+| DELETE | `/bookings/{id}` | Cancel booking          |
 
 ### Expert
-| Method | Endpoint                            | Description                    |
-|--------|-------------------------------------|--------------------------------|
-| GET    | `/experts/dashboard`                | Summary: earnings, job counts  |
-| PUT    | `/experts/availability`             | Toggle online/offline          |
-| GET    | `/experts/jobs`                     | List assigned jobs             |
-| POST   | `/experts/jobs/{id}/accept`         | Accept a job                   |
-| POST   | `/experts/jobs/{id}/reject`         | Reject a job                   |
-| GET    | `/experts/earnings`                 | Paginated earnings history     |
+
+| Method | Endpoint                    | Description                   |
+| ------ | --------------------------- | ----------------------------- |
+| GET    | `/experts/dashboard`        | Summary: earnings, job counts |
+| PUT    | `/experts/availability`     | Toggle online/offline         |
+| GET    | `/experts/jobs`             | List assigned jobs            |
+| POST   | `/experts/jobs/{id}/accept` | Accept a job                  |
+| POST   | `/experts/jobs/{id}/reject` | Reject a job                  |
+| GET    | `/experts/earnings`         | Paginated earnings history    |
 
 ### Catalog
-| Method | Endpoint                  | Description               |
-|--------|---------------------------|---------------------------|
-| GET    | `/categories`             | List service categories   |
-| GET    | `/services`               | List services by category |
-| GET    | `/services/{id}`          | Get service details       |
-| GET    | `/experts`                | List available experts    |
+
+| Method | Endpoint         | Description               |
+| ------ | ---------------- | ------------------------- |
+| GET    | `/categories`    | List service categories   |
+| GET    | `/services`      | List services by category |
+| GET    | `/services/{id}` | Get service details       |
+| GET    | `/experts`       | List available experts    |
 
 ### Payments
-| Method | Endpoint       | Description             |
-|--------|----------------|-------------------------|
-| POST   | `/payments`    | Process payment         |
-| GET    | `/payments/{id}` | Get payment details   |
+
+| Method | Endpoint         | Description         |
+| ------ | ---------------- | ------------------- |
+| POST   | `/payments`      | Process payment     |
+| GET    | `/payments/{id}` | Get payment details |
 
 ### Ratings
-| Method | Endpoint   | Description                |
-|--------|------------|----------------------------|
-| POST   | `/ratings` | Submit rating for booking  |
+
+| Method | Endpoint   | Description               |
+| ------ | ---------- | ------------------------- |
+| POST   | `/ratings` | Submit rating for booking |
 
 ---
 
 ## 🔄 User Workflows
 
 ### Customer Workflow
+
 ```
 Register / Login
     ↓
@@ -262,6 +272,7 @@ Rate Expert (after COMPLETED)
 ```
 
 ### Expert Workflow
+
 ```
 Register / Login
     ↓
@@ -282,18 +293,18 @@ View Total Earnings on Dashboard
 
 ## 📦 Key Modules
 
-| Module                          | Role                                                      |
-|---------------------------------|-----------------------------------------------------------|
-| `auth_service.py`               | JWT generation, password hashing, user registration       |
-| `booking_service.py`            | Booking CRUD, duration calculation, earnings computation  |
-| `payment_service.py`            | Idempotent payment processing, booking status update      |
-| `expert_service.py`             | Dashboard summary, job accept/reject, earnings ledger     |
-| `rating_service.py`             | Submit and link ratings to bookings                       |
-| `expert_repo.py`                | Aggregated queries for earnings sum and history           |
-| `auth.guard.ts`                 | Angular route guard checking token + role                 |
-| `auth.interceptor.ts`           | Attaches Bearer JWT to all outgoing HTTP requests         |
-| `booking-flow.component.ts`     | Multi-step booking form with time range and address       |
-| `expert-earnings.component.ts`  | Earnings history table with totals and net payout         |
+| Module                         | Role                                                     |
+| ------------------------------ | -------------------------------------------------------- |
+| `auth_service.py`              | JWT generation, password hashing, user registration      |
+| `booking_service.py`           | Booking CRUD, duration calculation, earnings computation |
+| `payment_service.py`           | Idempotent payment processing, booking status update     |
+| `expert_service.py`            | Dashboard summary, job accept/reject, earnings ledger    |
+| `rating_service.py`            | Submit and link ratings to bookings                      |
+| `expert_repo.py`               | Aggregated queries for earnings sum and history          |
+| `auth.guard.ts`                | Angular route guard checking token + role                |
+| `auth.interceptor.ts`          | Attaches Bearer JWT to all outgoing HTTP requests        |
+| `booking-flow.component.ts`    | Multi-step booking form with time range and address      |
+| `expert-earnings.component.ts` | Earnings history table with totals and net payout        |
 
 ---
 
@@ -305,22 +316,6 @@ All monetary values in this application use **Indian Rupees (₹ INR)**.
 - Booking total amounts are in ₹
 - Expert earnings are in ₹
 - Payment screens display ₹ consistently
-
----
-
-## 📸 Screenshots
-
-> _(Placeholder — replace with actual screenshots after deployment)_
-
-| Page                   | Screenshot |
-|------------------------|------------|
-| Landing Page           | `screenshots/landing.png` |
-| Service List           | `screenshots/services.png` |
-| Booking Flow           | `screenshots/booking.png` |
-| Payment               | `screenshots/payment.png` |
-| Customer Dashboard     | `screenshots/customer_dash.png` |
-| Expert Dashboard       | `screenshots/expert_dash.png` |
-| Expert Earnings        | `screenshots/earnings.png` |
 
 ---
 
@@ -344,6 +339,7 @@ All monetary values in this application use **Indian Rupees (₹ INR)**.
 ## 👨‍💻 Author
 
 **HouseMate** — Built as a comprehensive full-stack assignment project demonstrating:
+
 - Angular 17 standalone component architecture
 - FastAPI async backend with PostgreSQL
 - JWT-based role-based access control
@@ -352,4 +348,4 @@ All monetary values in this application use **Indian Rupees (₹ INR)**.
 
 ---
 
-> Built with ❤️ using Angular + FastAPI + PostgreSQL
+> Built with using Angular + FastAPI + PostgreSQL
